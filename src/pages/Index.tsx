@@ -91,7 +91,6 @@ const Index = () => {
   const navItems = [
     { id: 'home', label: 'Главная', icon: 'Home' },
     { id: 'countries', label: 'Страны', icon: 'Globe' },
-    { id: 'traditions', label: 'Традиции', icon: 'Sparkles' },
   ];
 
   return (
@@ -147,15 +146,7 @@ const Index = () => {
                     <Icon name="Compass" size={20} />
                     Начать путешествие
                   </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="gap-2"
-                    onClick={() => setActiveSection('traditions')}
-                  >
-                    <Icon name="BookOpen" size={20} />
-                    Узнать больше
-                  </Button>
+
                 </div>
               </div>
             </section>
@@ -368,27 +359,7 @@ const Index = () => {
           </div>
         )}
 
-        {activeSection === 'traditions' && (
-          <div className="container mx-auto px-4 py-12 animate-fade-in">
-            <h2 className="text-4xl font-bold mb-8 text-primary">Традиции и обычаи</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {traditions.map((tradition, index) => (
-                <Card
-                  key={index}
-                  className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer"
-                >
-                  <CardContent className="p-6 flex items-center gap-4">
-                    <div className="text-5xl">{tradition.icon}</div>
-                    <div>
-                      <h3 className="text-2xl font-semibold mb-1">{tradition.title}</h3>
-                      <p className="text-muted-foreground">{tradition.country}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
+
 
 
       </main>
