@@ -2,15 +2,69 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+interface Country {
+  name: string;
+  icon: string;
+  description: string;
+  history: string;
+  culture: string;
+  traditions: string[];
+  cuisine: string[];
+  festivals: string[];
+  facts: string[];
+}
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
 
-  const countries = [
-    { name: 'Япония', icon: '🇯🇵', description: 'Страна восходящего солнца' },
-    { name: 'Италия', icon: '🇮🇹', description: 'Колыбель ренессанса' },
-    { name: 'Индия', icon: '🇮🇳', description: 'Земля тысячи красок' },
-    { name: 'Мексика', icon: '🇲🇽', description: 'Родина древних майя' },
+  const countries: Country[] = [
+    {
+      name: 'Япония',
+      icon: '🇯🇵',
+      description: 'Страна восходящего солнца',
+      history: 'Япония имеет более чем 2000-летнюю историю. Страна была изолирована от внешнего мира в течение 200 лет (период Эдо, 1603-1868), что позволило развиться уникальной культуре. После реставрации Мэйдзи в 1868 году Япония стремительно модернизировалась, сохранив традиции.',
+      culture: 'Японская культура основана на гармонии, уважении и внимании к деталям. Концепция "ваби-саби" ценит красоту несовершенства. Важны понятия группы, иерархии и сезонности.',
+      traditions: ['Чайная церемония', 'Икебана (искусство цветов)', 'Каллиграфия', 'Кимоно', 'Оригами', 'Боевые искусства'],
+      cuisine: ['Суши и сашими', 'Рамен', 'Темпура', 'Якитори', 'Мисо-суп', 'Вагаси (сладости)'],
+      festivals: ['Ханами (цветение сакуры)', 'Мацури (летние фестивали)', 'О-бон', 'Новый год'],
+      facts: ['В Японии более 6800 островов', 'Япония - страна с самой высокой продолжительностью жизни', 'Более 70% территории покрыто горами']
+    },
+    {
+      name: 'Италия',
+      icon: '🇮🇹',
+      description: 'Колыбель ренессанса',
+      history: 'Италия - родина Римской империи, оказавшей огромное влияние на западную цивилизацию. В эпоху Возрождения (XIV-XVI века) Италия стала центром искусства, науки и культуры. Италия объединилась как единое государство только в 1861 году.',
+      culture: 'Итальянская культура прославляет искусство, семью и качество жизни ("la dolce vita"). Итальянцы страстны, экспрессивны и ценят красоту во всём. Региональные различия очень сильны - каждая область имеет свои диалекты и традиции.',
+      traditions: ['Опера и классическая музыка', 'Католические процессии', 'Паседжата (вечерняя прогулка)', 'Кофе-культура', 'Мода и дизайн'],
+      cuisine: ['Паста (более 300 видов)', 'Пицца', 'Ризотто', 'Джелато', 'Просекко и вино', 'Тирамису'],
+      festivals: ['Карнавал в Венеции', 'Палио ди Сиена', 'Праздник святых покровителей городов', 'Пасха'],
+      facts: ['В Италии 58 объектов ЮНЕСКО - больше, чем в любой другой стране', 'Италия производит больше вина, чем любая другая страна', 'В Италии два независимых государства: Ватикан и Сан-Марино']
+    },
+    {
+      name: 'Индия',
+      icon: '🇮🇳',
+      description: 'Земля тысячи красок',
+      history: 'Индия - одна из древнейших цивилизаций мира с историей более 5000 лет. Родина буддизма и индуизма. Индия была британской колонией до 1947 года, когда обрела независимость благодаря движению Махатмы Ганди.',
+      culture: 'Индийская культура невероятно разнообразна - 22 официальных языка, множество религий и традиций. Центральные ценности: семья, духовность, гостеприимство. Цвета, танцы и музыка играют важную роль в повседневной жизни.',
+      traditions: ['Йога и медитация', 'Классические танцы (Катхак, Бхаратнатьям)', 'Менди (роспись хной)', 'Аюрведа', 'Свадебные церемонии'],
+      cuisine: ['Карри различных видов', 'Тандури', 'Биряни', 'Доса и идли', 'Самоса', 'Чай масала'],
+      festivals: ['Дивали (фестиваль огней)', 'Холи (праздник красок)', 'Душера', 'Наваратри', 'Понгал'],
+      facts: ['Индия - крупнейшая демократия в мире', 'Шахматы были изобретены в Индии', 'Индия - родина йоги, которой более 5000 лет']
+    },
+    {
+      name: 'Мексика',
+      icon: '🇲🇽',
+      description: 'Родина древних майя',
+      history: 'До прихода испанцев в Мексике процветали великие цивилизации: майя, ацтеки, ольмеки. Испанская колонизация (1521-1821) привела к смешению европейской и индейской культур, создав уникальную мексиканскую идентичность.',
+      culture: 'Мексиканская культура - яркое сочетание индейских и испанских традиций. Мексиканцы страстны, общительны и гордятся своим наследием. Семья, музыка и праздники играют центральную роль. День мёртвых показывает уникальное отношение к жизни и смерти.',
+      traditions: ['Мариачи (музыка)', 'Луча либре (рестлинг)', 'Пиньята', 'Алтари для умерших', 'Народные ремёсла (алебрихес)'],
+      cuisine: ['Тако', 'Гуакамоле', 'Моле', 'Энчилада', 'Тамале', 'Текила и мескаль'],
+      festivals: ['День мёртвых', 'Синко де Майо', 'День независимости', 'Гелагетса', 'Посадас (Рождество)'],
+      facts: ['Шоколад, кукуруза и томаты родом из Мексики', 'В Мексике 35 объектов ЮНЕСКО', 'Мексика - родина цветной телевизионной системы']
+    },
   ];
 
   const traditions = [
@@ -145,7 +199,7 @@ const Index = () => {
           </div>
         )}
 
-        {activeSection === 'countries' && (
+        {activeSection === 'countries' && !selectedCountry && (
           <div className="container mx-auto px-4 py-12 animate-fade-in">
             <div className="mb-12">
               <h2 className="text-4xl font-bold mb-4 text-primary">Страны мира</h2>
@@ -162,6 +216,7 @@ const Index = () => {
                 <Card
                   key={index}
                   className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer"
+                  onClick={() => setSelectedCountry(country)}
                 >
                   <CardContent className="p-6 text-center">
                     <div className="text-6xl mb-4">{country.icon}</div>
@@ -170,6 +225,147 @@ const Index = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        )}
+
+        {selectedCountry && (
+          <div className="container mx-auto px-4 py-12 animate-fade-in">
+            <Button
+              variant="ghost"
+              className="mb-6 gap-2"
+              onClick={() => setSelectedCountry(null)}
+            >
+              <Icon name="ArrowLeft" size={20} />
+              Назад к странам
+            </Button>
+            
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <div className="text-8xl mb-4">{selectedCountry.icon}</div>
+                <h1 className="text-5xl font-bold text-primary mb-4">{selectedCountry.name}</h1>
+                <p className="text-xl text-muted-foreground">{selectedCountry.description}</p>
+              </div>
+
+              <Tabs defaultValue="history" className="w-full">
+                <TabsList className="grid w-full grid-cols-5 mb-8">
+                  <TabsTrigger value="history">История</TabsTrigger>
+                  <TabsTrigger value="culture">Культура</TabsTrigger>
+                  <TabsTrigger value="traditions">Традиции</TabsTrigger>
+                  <TabsTrigger value="cuisine">Кухня</TabsTrigger>
+                  <TabsTrigger value="festivals">Праздники</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="history" className="animate-fade-in">
+                  <Card>
+                    <CardContent className="p-8">
+                      <div className="flex items-start gap-4 mb-6">
+                        <Icon name="BookOpen" size={32} className="text-secondary flex-shrink-0" />
+                        <div>
+                          <h2 className="text-2xl font-semibold mb-4">История</h2>
+                          <p className="text-lg leading-relaxed text-muted-foreground">
+                            {selectedCountry.history}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-8 pt-6 border-t">
+                        <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                          <Icon name="Lightbulb" size={20} />
+                          Интересные факты
+                        </h3>
+                        <ul className="space-y-3">
+                          {selectedCountry.facts.map((fact, i) => (
+                            <li key={i} className="flex gap-3">
+                              <span className="text-accent flex-shrink-0">•</span>
+                              <span className="text-muted-foreground">{fact}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="culture" className="animate-fade-in">
+                  <Card>
+                    <CardContent className="p-8">
+                      <div className="flex items-start gap-4">
+                        <Icon name="Users" size={32} className="text-secondary flex-shrink-0" />
+                        <div>
+                          <h2 className="text-2xl font-semibold mb-4">Культура и ценности</h2>
+                          <p className="text-lg leading-relaxed text-muted-foreground">
+                            {selectedCountry.culture}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="traditions" className="animate-fade-in">
+                  <Card>
+                    <CardContent className="p-8">
+                      <div className="flex items-start gap-4 mb-6">
+                        <Icon name="Sparkles" size={32} className="text-secondary flex-shrink-0" />
+                        <h2 className="text-2xl font-semibold">Традиции и обычаи</h2>
+                      </div>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {selectedCountry.traditions.map((tradition, i) => (
+                          <div
+                            key={i}
+                            className="p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
+                          >
+                            <p className="text-lg">{tradition}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="cuisine" className="animate-fade-in">
+                  <Card>
+                    <CardContent className="p-8">
+                      <div className="flex items-start gap-4 mb-6">
+                        <Icon name="UtensilsCrossed" size={32} className="text-secondary flex-shrink-0" />
+                        <h2 className="text-2xl font-semibold">Национальная кухня</h2>
+                      </div>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {selectedCountry.cuisine.map((dish, i) => (
+                          <div
+                            key={i}
+                            className="p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
+                          >
+                            <p className="text-lg">{dish}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="festivals" className="animate-fade-in">
+                  <Card>
+                    <CardContent className="p-8">
+                      <div className="flex items-start gap-4 mb-6">
+                        <Icon name="Calendar" size={32} className="text-secondary flex-shrink-0" />
+                        <h2 className="text-2xl font-semibold">Праздники и фестивали</h2>
+                      </div>
+                      <div className="space-y-4">
+                        {selectedCountry.festivals.map((festival, i) => (
+                          <div
+                            key={i}
+                            className="p-4 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
+                          >
+                            <p className="text-lg">{festival}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
         )}
