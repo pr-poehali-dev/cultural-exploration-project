@@ -92,8 +92,6 @@ const Index = () => {
     { id: 'home', label: 'Главная', icon: 'Home' },
     { id: 'countries', label: 'Страны', icon: 'Globe' },
     { id: 'traditions', label: 'Традиции', icon: 'Sparkles' },
-    { id: 'cuisine', label: 'Кухня', icon: 'UtensilsCrossed' },
-    { id: 'festivals', label: 'Праздники', icon: 'Calendar' },
   ];
 
   return (
@@ -392,62 +390,7 @@ const Index = () => {
           </div>
         )}
 
-        {activeSection === 'cuisine' && (
-          <div className="container mx-auto px-4 py-12 animate-fade-in">
-            <h2 className="text-4xl font-bold mb-8 text-primary">Национальная кухня</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {cuisines.map((cuisine, index) => (
-                <Card
-                  key={index}
-                  className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer"
-                >
-                  <CardContent className="p-6 text-center">
-                    <div className="text-6xl mb-4">{cuisine.icon}</div>
-                    <h3 className="text-2xl font-semibold mb-2">{cuisine.name}</h3>
-                    <p className="text-muted-foreground">{cuisine.country}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
 
-        {activeSection === 'festivals' && (
-          <div className="container mx-auto px-4 py-12 animate-fade-in">
-            <div className="mb-12">
-              <h2 className="text-4xl font-bold mb-4 text-primary">Праздники и фестивали</h2>
-              <div className="relative h-64 rounded-2xl overflow-hidden mb-8">
-                <img
-                  src="https://cdn.poehali.dev/projects/ef931551-9cd8-4f55-a9ec-83e6528f3bfd/files/17dd8e22-2d90-4491-a23d-61da2945adf8.jpg"
-                  alt="Cultural celebrations"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6">
-              {festivals.map((festival, index) => (
-                <Card
-                  key={index}
-                  className="hover:shadow-xl transition-all hover:scale-105 cursor-pointer"
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="text-5xl">{festival.icon}</div>
-                      <div className="flex-1">
-                        <h3 className="text-2xl font-semibold mb-1">{festival.name}</h3>
-                        <p className="text-muted-foreground mb-2">{festival.country}</p>
-                        <div className="inline-flex items-center gap-1 px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">
-                          <Icon name="Calendar" size={14} />
-                          {festival.season}
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
       </main>
 
       <footer className="bg-primary text-primary-foreground py-8 mt-20">
